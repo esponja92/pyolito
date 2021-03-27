@@ -15,7 +15,8 @@ class Bola(ObjetoAtivo):
 
         self.raio = raio
 
-        self.direcao = 1
+        self.direcao_vertical = 1
+        self.direcao_horizontal = 0
 
         super().__init__(self.inicial_x, self.inicial_y,
                          self.LARGURA, self.ALTURA, self.VELOCIDADE, self.cor)
@@ -25,10 +26,37 @@ class Bola(ObjetoAtivo):
 
     def atualiza_posicao(self, listaObjetosAtivos, janela, keys):
         if(self.colliderect(listaObjetosAtivos['jogador'])):
-            self.direcao = -1
-        elif(self.colliderect(listaObjetosAtivos['inimigo'])):
-            self.direcao = 1
+            self.direcao_vertical = -1
 
-        self.y = self.y + self.direcao*self.VELOCIDADE
+            if(abs(self.get_posicao_central_x() - listaObjetosAtivos['jogador'].get_posicao_central_x()) < 10):
+                self.direcao_horizontal = 0
+
+            elif(self.get_posicao_central_x() > listaObjetosAtivos['jogador'].get_posicao_central_x()):
+                self.direcao_horizontal = 1
+            
+            elif(self.get_posicao_central_x() < listaObjetosAtivos['jogador'].get_posicao_central_x()):
+                self.direcao_horizontal = -1
+
+        elif(self.colliderect(listaObjetosAtivos['inimigo'])):
+            self.direcao_vertical = 1
+
+        if(not(self.pode_mover_direita(janela))):
+            self.direcao_horizontal = -1
+
+        if(not(self.pode_mover_esquerda(janela))):
+            self.direcao_horizontal = 1
+
+        #atualiza a posicao da bola
+        if(self.direcao_vertical == -1):
+            self.move_cima()
+        
+        if(self.direcao_vertical == 1):
+            self.move_baixo()
+
+        if(self.direcao_horizontal == 1):
+            self.move_direita()
+        
+        if(self.direcao_horizontal == -1):
+            self.move_esquerda()
         
 

@@ -30,7 +30,7 @@ class Game(object):
                                self.JANELA_ALTURA - 15, pygame.Color('red'))
 
         self.inimigo = Inimigo(0, 15, pygame.Color('white'))
-        self.inimigo.set_velocidade(3)
+        self.inimigo.set_velocidade(5)
 
         self.bola = Bola(self.JANELA_LARGURA/2,
                          self.JANELA_ALTURA/2, 15, pygame.Color('white'))
