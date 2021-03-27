@@ -1,5 +1,6 @@
 import pygame
 
+
 class ObjetoAtivo(pygame.Rect):
 
     def __init__(self, inicial_x, inicial_y, LARGURA, ALTURA, VELOCIDADE, cor):
@@ -11,13 +12,20 @@ class ObjetoAtivo(pygame.Rect):
         self.ALTURA = ALTURA
         self.VELOCIDADE = VELOCIDADE
 
-        super(ObjetoAtivo, self).__init__((self.inicial_x, self.inicial_y, self.LARGURA, self.ALTURA))
+        super(ObjetoAtivo, self).__init__(
+            (self.inicial_x, self.inicial_y, self.LARGURA, self.ALTURA))
 
     def move_direita(self):
         self.x = self.x + self.VELOCIDADE
 
     def move_esquerda(self):
         self.x = self.x - self.VELOCIDADE
+
+    def move_baixo(self):
+        self.y = self.y + self.VELOCIDADE
+
+    def move_cima(self):
+        self.y = self.y - self.VELOCIDADE
 
     def pode_mover_direita(self, janela):
         return self.x < (janela.get_width() - self.LARGURA)
@@ -35,4 +43,7 @@ class ObjetoAtivo(pygame.Rect):
         self.VELOCIDADE = velocidade
 
     def desenha(self, janela):
+        pass
+
+    def atualiza_posicao(self, listaObjetosAtivos, janela, keys):
         pass

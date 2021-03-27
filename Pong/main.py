@@ -1,9 +1,9 @@
 import pygame
 import sys
 from pygame.locals import *
-from Raquete import *
+from Jogador import *
+from Inimigo import *
 from Bola import *
-
 
 class Game(object):
 
@@ -26,46 +26,38 @@ class Game(object):
         self.janela = pygame.display.set_mode(
             (self.JANELA_LARGURA, self.JANELA_ALTURA))
 
-        self.jogador = Raquete(self.JANELA_LARGURA/2,
+        self.jogador = Jogador(self.JANELA_LARGURA/2,
                                self.JANELA_ALTURA - 15, pygame.Color('red'))
 
-        self.inimigo = Raquete(0, 15, pygame.Color('white'))
+        self.inimigo = Inimigo(0, 15, pygame.Color('white'))
         self.inimigo.set_velocidade(3)
 
         self.bola = Bola(self.JANELA_LARGURA/2,
                          self.JANELA_ALTURA/2, 15, pygame.Color('white'))
 
-        self.objetos = [self.jogador, self.inimigo, self.bola]
+        self.objetos = {'bola':self.bola,'jogador':self.jogador,'inimigo':self.inimigo}
 
         self.clock = pygame.time.Clock()
 
         pygame.display.set_caption('PyPong')
         pygame.init()
 
-    def atualiza_jogo(self):
+    def desenha(self):
         self.janela.fill(self.light_blue)
 
         for objeto in self.objetos:
-            objeto.desenha(self.janela)
+            self.objetos[objeto].desenha(self.janela)
 
         pygame.display.update()
 
-    def move_jogador(self, keys):
-        if(keys[pygame.K_RIGHT] and self.jogador.pode_mover_direita(self.janela)):
-            self.jogador.move_direita()
+    def atualiza_posicao(self):
+        keys = pygame.key.get_pressed()
 
-        if(keys[pygame.K_LEFT] and self.jogador.pode_mover_esquerda(self.janela)):
-            self.jogador.move_esquerda()
-
-    def move_inimigo(self, bola):
-        if(bola.get_posicao_central_x() > self.inimigo.get_posicao_central_x() and self.inimigo.pode_mover_direita(self.janela)):
-            self.inimigo.move_direita()
-
-        if(bola.get_posicao_central_x() < self.inimigo.get_posicao_central_x() and self.inimigo.pode_mover_esquerda(self.janela)):
-            self.inimigo.move_esquerda()
+        for objeto in self.objetos:
+            self.objetos[objeto].atualiza_posicao(self.objetos, self.janela, keys)
 
     def gameLoop(self):
-        self.atualiza_jogo()
+        self.desenha()
 
         while True:
             self.clock.tick(self.FPS)
@@ -74,16 +66,9 @@ class Game(object):
                     pygame.quit()
                     sys.exit()
 
-            # move jogador
-            keys = pygame.key.get_pressed()
-            self.move_jogador(keys)
+            self.atualiza_posicao()
 
-            # move bola
-
-            # move inimigo
-            self.move_inimigo(self.bola)
-
-            self.atualiza_jogo()
+            self.desenha()
 
 
 if __name__ == '__main__':
