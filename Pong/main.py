@@ -58,10 +58,10 @@ class Game(object):
             self.jogador.move_esquerda()
 
     def move_inimigo(self, bola):
-        if(bola.get_posicao_x() > self.inimigo.get_posicao_x() and self.inimigo.pode_mover_direita(self.janela)):
+        if(bola.get_posicao_central_x() > self.inimigo.get_posicao_central_x() and self.inimigo.pode_mover_direita(self.janela)):
             self.inimigo.move_direita()
 
-        if(bola.get_posicao_x() < self.inimigo.get_posicao_x() and self.inimigo.pode_mover_esquerda(self.janela)):
+        if(bola.get_posicao_central_x() < self.inimigo.get_posicao_central_x() and self.inimigo.pode_mover_esquerda(self.janela)):
             self.inimigo.move_esquerda()
 
     def gameLoop(self):
