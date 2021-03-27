@@ -47,3 +47,7 @@ class ObjetoAtivo(pygame.Rect):
 
     def atualiza_posicao(self, listaObjetosAtivos, janela, keys):
         pass
+
+    def reinicia(self):
+        self.x = self.inicial_x
+        self.y = self.inicial_y

@@ -24,6 +24,11 @@ class Bola(ObjetoAtivo):
     def desenha(self, janela):
         pygame.draw.circle(janela, self.cor, (self.x, self.y), self.raio)
 
+    def reinicia(self):
+        super().reinicia()
+        self.direcao_vertical = 1
+        self.direcao_horizontal = 0
+
     def atualiza_posicao(self, listaObjetosAtivos, janela, keys):
         if(self.colliderect(listaObjetosAtivos['jogador'])):
             self.direcao_vertical = -1

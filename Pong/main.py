@@ -56,6 +56,10 @@ class Game(object):
         for objeto in self.objetos:
             self.objetos[objeto].atualiza_posicao(self.objetos, self.janela, keys)
 
+    def reinicia(self):
+        for objeto in self.objetos:
+            self.objetos[objeto].reinicia()
+
     def gameLoop(self):
         self.desenha()
 
@@ -65,6 +69,8 @@ class Game(object):
                 if event.type == QUIT or (event.type == pygame.KEYDOWN and (event.key == pygame.K_ESCAPE or event.key == pygame.K_q)):
                     pygame.quit()
                     sys.exit()
+                if (event.type == pygame.KEYDOWN and event.key == pygame.K_r):
+                    self.reinicia()
 
             self.atualiza_posicao()
 
