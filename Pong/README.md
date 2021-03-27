@@ -2,10 +2,9 @@
 
 Próximas tarefas
 
-- implementar movimento da bola
-
-- implementar detecção de colisão
+- aprimorar detecção de colisão
 
 - implementar condições de vitória e derrota
+    - destruir bola
 
 - implementar UI

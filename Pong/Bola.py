@@ -28,7 +28,7 @@ class Bola(ObjetoAtivo):
         if(self.colliderect(listaObjetosAtivos['jogador'])):
             self.direcao_vertical = -1
 
-            if(abs(self.get_posicao_central_x() - listaObjetosAtivos['jogador'].get_posicao_central_x()) < 10):
+            if(abs(self.get_posicao_central_x() - listaObjetosAtivos['jogador'].get_posicao_central_x()) < self.LARGURA):
                 self.direcao_horizontal = 0
 
             elif(self.get_posicao_central_x() > listaObjetosAtivos['jogador'].get_posicao_central_x()):
