@@ -5,9 +5,9 @@ from ObjetoAtivo import ObjetoAtivo
 class Bola(ObjetoAtivo):
 
     def __init__(self, centro_x, centro_y, raio, cor):
-        self.LARGURA = 15
-        self.ALTURA = 15
-        self.VELOCIDADE = 5
+        self.largura = 15
+        self.altura = 15
+        self.velocidade = 5
 
         self.inicial_x = centro_x
         self.inicial_y = centro_y
@@ -19,7 +19,7 @@ class Bola(ObjetoAtivo):
         self.direcao_horizontal = 0
 
         super().__init__(self.inicial_x, self.inicial_y,
-                         self.LARGURA, self.ALTURA, self.VELOCIDADE, self.cor)
+                         self.largura, self.altura, self.velocidade, self.cor)
 
     def desenha(self, janela):
         pygame.draw.circle(janela, self.cor, (self.x, self.y), self.raio)
@@ -33,7 +33,7 @@ class Bola(ObjetoAtivo):
         if(self.colidiu_com_objeto_ativo(listaObjetosAtivos['jogador'])):
             self.direcao_vertical = -1
 
-            if(abs(self.get_posicao_central_x() - listaObjetosAtivos['jogador'].get_posicao_central_x()) < self.LARGURA):
+            if(abs(self.get_posicao_central_x() - listaObjetosAtivos['jogador'].get_posicao_central_x()) <= 7.5):
                 self.direcao_horizontal = 0
 
             elif(self.get_posicao_central_x() > listaObjetosAtivos['jogador'].get_posicao_central_x()):

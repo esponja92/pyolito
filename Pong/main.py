@@ -52,7 +52,7 @@ class Game(object):
         self.janela.fill(self.light_blue)
 
         self.atualiza_pontos()
-        
+
         for objeto in self.objetos:
             self.objetos[objeto].desenha(self.janela)
 
@@ -80,6 +80,7 @@ class Game(object):
 
     def atualiza_pontos(self):
 
+        #TODO: verificar se é necessário retornar um novo Surface toda vez
         placar_jogador = self.myfont.render(str(self.pontosJogador), False, (0, 0, 0))
         self.janela.blit(placar_jogador,(self.JANELA_LARGURA/2,3*self.JANELA_ALTURA/4))
 

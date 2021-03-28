@@ -4,9 +4,9 @@ from Raquete import Raquete
 
 class Jogador(Raquete):
 
-    LARGURA = ''
-    ALTURA = ''
-    VELOCIDADE = ''
+    largura = ''
+    altura = ''
+    velocidade = ''
 
     inicial_x = ''
     inicial_y = ''
