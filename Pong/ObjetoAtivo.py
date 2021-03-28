@@ -27,11 +27,17 @@ class ObjetoAtivo(pygame.Rect):
     def move_cima(self):
         self.y = self.y - self.VELOCIDADE
 
-    def pode_mover_direita(self, janela):
-        return self.x < (janela.get_width() - self.LARGURA)
+    def colidiu_tela_direita(self, janela):
+        return self.x >= (janela.get_width() - self.LARGURA)
 
-    def pode_mover_esquerda(self, janela):
-        return self.x > 0
+    def colidiu_tela_esquerda(self, janela):
+        return self.x <= 0
+
+    def colidiu_tela_cima(self, janela):
+        return self.y <= 0
+
+    def colidiu_tela_baixo(self, janela):
+        return self.y >= (janela.get_height() - self.ALTURA)
 
     def get_posicao_central_x(self):
         return self.x + self.LARGURA/2
@@ -51,3 +57,22 @@ class ObjetoAtivo(pygame.Rect):
     def reinicia(self):
         self.x = self.inicial_x
         self.y = self.inicial_y
+
+    def get_pixels(self):
+        pixels = []
+
+        for i in range(self.x, self.x+self.LARGURA+1):
+            for j in range(self.y, self.y+self.ALTURA+1):
+                pixels.append((i,j))
+
+        return pixels
+
+    def colidiu_com_objeto_ativo(self,objetoAtivo):
+        pixels = self.get_pixels()
+        pixelsObjetoAtivo = objetoAtivo.get_pixels()
+
+        for x in pixels:
+            if x in pixelsObjetoAtivo:
+                return True
+
+        return False

@@ -15,6 +15,8 @@ class Game(object):
     JANELA_LARGURA = 640
     JANELA_ALTURA = 480
 
+    GAME_OVER = False
+
     janela = ''
     clock = ''
     jogador = ''
@@ -60,10 +62,20 @@ class Game(object):
         for objeto in self.objetos:
             self.objetos[objeto].reinicia()
 
+    def jogadorGanhou(self):
+        if(self.bola.colidiu_tela_cima(self.janela)):
+            return True
+        return False
+
+    def jogadorPerdeu(self):
+        if(self.bola.colidiu_tela_baixo(self.janela)):
+            return True
+        return False
+
     def gameLoop(self):
         self.desenha()
 
-        while True:
+        while not(self.GAME_OVER):
             self.clock.tick(self.FPS)
             for event in pygame.event.get():
                 if event.type == QUIT or (event.type == pygame.KEYDOWN and (event.key == pygame.K_ESCAPE or event.key == pygame.K_q)):
@@ -71,6 +83,14 @@ class Game(object):
                     sys.exit()
                 if (event.type == pygame.KEYDOWN and event.key == pygame.K_r):
                     self.reinicia()
+
+            if(self.jogadorGanhou()):
+                print('JOGADOR GANHOU!')
+                self.GAME_OVER = True
+
+            if(self.jogadorPerdeu()):
+                print('JOGADOR PERDEU!')
+                self.GAME_OVER = True
 
             self.atualiza_posicao()
 

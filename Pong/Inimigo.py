@@ -15,8 +15,8 @@ class Inimigo(Raquete):
         super().__init__(centro_x, centro_y, cor)
 
     def atualiza_posicao(self, listaObjetosAtivos, janela, keys):
-        if(listaObjetosAtivos['bola'].get_posicao_central_x() > self.get_posicao_central_x() and self.pode_mover_direita(janela)):
+        if(listaObjetosAtivos['bola'].get_posicao_central_x() > self.get_posicao_central_x() and not(self.colidiu_tela_direita(janela))):
             self.move_direita()
 
-        if(listaObjetosAtivos['bola'].get_posicao_central_x() < self.get_posicao_central_x() and self.pode_mover_esquerda(janela)):
+        if(listaObjetosAtivos['bola'].get_posicao_central_x() < self.get_posicao_central_x() and not(self.colidiu_tela_esquerda(janela))):
             self.move_esquerda()

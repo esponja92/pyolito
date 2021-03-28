@@ -16,8 +16,8 @@ class Jogador(Raquete):
         super().__init__(centro_x, centro_y, cor)
 
     def atualiza_posicao(self, listaObjetosAtivos, janela, keys):
-        if(keys[pygame.K_RIGHT] and self.pode_mover_direita(janela)):
+        if(keys[pygame.K_RIGHT] and not(self.colidiu_tela_direita(janela))):
             self.move_direita()
 
-        if(keys[pygame.K_LEFT] and self.pode_mover_esquerda(janela)):
+        if(keys[pygame.K_LEFT] and not(self.colidiu_tela_esquerda(janela))):
             self.move_esquerda()
