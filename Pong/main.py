@@ -20,7 +20,9 @@ class Game(object):
     janela = ''
     clock = ''
     jogador = ''
+    pontosJogador = 0
     inimigo = ''
+    pontosInimigo = 0
     bola = ''
     objetos = []
 
@@ -31,7 +33,7 @@ class Game(object):
         self.jogador = Jogador(self.JANELA_LARGURA/2,
                                self.JANELA_ALTURA - 15, pygame.Color('red'))
 
-        self.inimigo = Inimigo(0, 15, pygame.Color('white'))
+        self.inimigo = Inimigo(self.JANELA_LARGURA/2, 15, pygame.Color('white'))
         self.inimigo.set_velocidade(4)
 
         self.bola = Bola(self.JANELA_LARGURA/2,
@@ -44,9 +46,13 @@ class Game(object):
         pygame.display.set_caption('PyPong')
         pygame.init()
 
+        self.myfont = pygame.font.SysFont('Comic Sans MS', 48)
+
     def desenha(self):
         self.janela.fill(self.light_blue)
 
+        self.atualiza_pontos()
+        
         for objeto in self.objetos:
             self.objetos[objeto].desenha(self.janela)
 
@@ -72,6 +78,14 @@ class Game(object):
             return True
         return False
 
+    def atualiza_pontos(self):
+
+        placar_jogador = self.myfont.render(str(self.pontosJogador), False, (0, 0, 0))
+        self.janela.blit(placar_jogador,(self.JANELA_LARGURA/2,3*self.JANELA_ALTURA/4))
+
+        placar_inimigo = self.myfont.render(str(self.pontosInimigo), False, (0, 0, 0))
+        self.janela.blit(placar_inimigo,(self.JANELA_LARGURA/2,self.JANELA_ALTURA/4))
+
     def gameLoop(self):
         self.desenha()
 
@@ -85,15 +99,14 @@ class Game(object):
                     self.reinicia()
 
             if(self.jogadorGanhou()):
-                print('JOGADOR GANHOU!')
-                self.GAME_OVER = True
+                self.pontosJogador = self.pontosJogador + 1
+                self.reinicia()
 
             if(self.jogadorPerdeu()):
-                print('JOGADOR PERDEU!')
-                self.GAME_OVER = True
+                self.pontosInimigo = self.pontosInimigo + 1
+                self.reinicia()
 
             self.atualiza_posicao()
-
             self.desenha()
 
 
