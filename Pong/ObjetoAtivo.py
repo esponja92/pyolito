@@ -58,7 +58,7 @@ class ObjetoAtivo(pygame.Rect):
         self.x = self.inicial_x
         self.y = self.inicial_y
 
-    def _get_pixels(self):
+    def _get_pixels_superficie(self):
         pixels = []
 
         for i in range(self.x, self.x+self.largura+1):
@@ -67,9 +67,10 @@ class ObjetoAtivo(pygame.Rect):
 
         return pixels
 
+    # Pixel perfect
     def colidiu_com_objeto_ativo(self,objetoAtivo):
-        pixels = self._get_pixels()
-        pixelsObjetoAtivo = objetoAtivo._get_pixels()
+        pixels = self._get_pixels_superficie()
+        pixelsObjetoAtivo = objetoAtivo._get_pixels_superficie()
 
         for x in pixels:
             if x in pixelsObjetoAtivo:
